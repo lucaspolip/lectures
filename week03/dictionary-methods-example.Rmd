@@ -11,7 +11,7 @@ Let's apply this technique to tweets by the four leading candidates in the 2016 
 
 ```{r}
 library(quanteda)
-tweets <- read.csv('candidate-tweets.csv', stringsAsFactors=F)
+tweets <- read.csv('candidate-tweets.csv', stringsAsFactors=F) #stringAsFactors=F because if it is true would return as a categorical variable and we want as a text.
 ```
 
 We will use the positive and negative categories in the augmented General Inquirer dictionary to measure the extent to which these candidates adopted a positive or negative tone during the election campaign.
@@ -19,6 +19,9 @@ We will use the positive and negative categories in the augmented General Inquir
 Note that first you will need to install the `quanteda.sentiment` package from GitHub
 
 ```{r, eval=FALSE}
+install.packages("devtools")
+library(devtools)
+install.packages("quanteda.sentiment")
 devtools::install_github("quanteda/quanteda.sentiment")
 devtools::install_github("quanteda/quanteda.dictionaries")
 ```
@@ -95,7 +98,7 @@ for (cand in candidates){
 But what happens if we now run the analysis excluding a single word?
 
 ```{r}
-pos.words <- pos.words[-which(pos.words=="great")]
+pos.words <- pos.words[-which(pos.words=="great")] ##great is part of trump campaign, therefore, we should take it out. 
 
 sent_dictionary <- dictionary(list(positive = pos.words,
                           negative = neg.words))
